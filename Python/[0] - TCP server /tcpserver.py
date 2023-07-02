@@ -1,6 +1,6 @@
 import socket
 
-# Establishes a TCP socket
+# Establishes a TCP socket using IPv4 (AF_INET)
 tcp1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Bind address

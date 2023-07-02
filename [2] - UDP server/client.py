@@ -3,7 +3,7 @@ import threading
 
 UDP_PORT = 4211
 BUFF_SIZE = 4096
-PRIVATE_IP = "192.168.100.39"  # Replace with the SERVER IP
+PRIVATE_IP = ""  # Replace with the SERVER IP
 
 IP = "127.0.0.2"
 # Create a tcp socket

@@ -3,7 +3,7 @@ import threading
 
 TCP_PORT = 4211
 BUFF_SIZE = 4096
-PRIVATE_IP = "192.168.100.39"  # Replace with the SERVER IP
+PRIVATE_IP = ""  # Replace with the SERVER IP
 
 # Create a tcp socket
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

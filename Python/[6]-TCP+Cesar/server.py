@@ -3,7 +3,10 @@ import threading
 
 TCP_PORT = 4211
 BUFF_SIZE = 4096
+SHIFT = 6
 
+uppercase_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+lowercase_letters = 'abcdefghijklmnopqrstuvwxyz'
 
 # Create a tcp socket
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -28,21 +31,48 @@ def get_ip():
 
 
 def receive_message(conn):
+    
 
     while True:
+        decrypted_msg = ""
         msg = conn.recv(BUFF_SIZE)
-
+        
+        # Decrypt
+        for letter in str(msg.decode()):
+            if letter.isnumeric() or not letter.isalnum():
+                decrypted_msg += letter
+            elif letter.isupper():
+                index = uppercase_letters.index(letter)
+                decrypted_msg += uppercase_letters[(index - SHIFT) % 26]
+            elif letter.islower():
+                index = lowercase_letters.index(letter)
+                decrypted_msg += lowercase_letters[(index - SHIFT) % 26]
+        
+        
         if len(msg) == 0:
             break
-        print(f"\nUser: {msg.decode()}")
+        print(f"\nReceive encoded: {msg.decode()}")
+        print(f"\nReceive decoded: {decrypted_msg}")
+
 
 
 def send_message(conn):
-
+    encrypted_msg = ""
     while True:
         print(end='', flush=True)
+        
         reply = input("Input your message here: ")
-        conn.send(reply.encode())
+        
+        for letter in str(reply):
+            if letter.isnumeric() or not letter.isalnum():
+                encrypted_msg += letter
+            elif letter.isupper():
+                index = uppercase_letters.index(letter)
+                encrypted_msg += uppercase_letters[(index + SHIFT) % 26]
+            elif letter.islower():
+                index = lowercase_letters.index(letter)
+                encrypted_msg += lowercase_letters[(index + SHIFT) % 26]
+        conn.send(encrypted_msg.encode())
 
 
 private_ip = get_ip()

@@ -1,6 +1,6 @@
 import socket
 import threading
-
+import struct
 TCP_PORT = 4211
 BUFF_SIZE = 4096
 
@@ -8,9 +8,9 @@ BUFF_SIZE = 4096
 # Create a tcp socket
 tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+
+
 # Get the private IP address of the machine, if it does not exists use localhost instead
-
-
 def get_ip():
 
     # Returns a tuple index 0 IP address and index 1 port assigned when
@@ -35,6 +35,9 @@ def receive_message(conn):
         if len(msg) == 0:
             break
         print(f"\nUser: {msg.decode()}")
+        print(f"Received Message Size: {len(msg)}")
+        
+        
 
 
 def send_message(conn):
